@@ -2,9 +2,12 @@
 ##########           UI            ################
 ###################################################
 
+source("libraries.R")
+source("sources.R")
+
 ui <- fluidPage(
     shinyjs::useShinyjs(debug = TRUE),
-    theme = shinytheme("journal"),
+    theme = shinythemes::shinytheme("journal"),
     fluidRow(class = "main",
         div(class = "content-wrapper",
             header("Header"),

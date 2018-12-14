@@ -2,11 +2,6 @@
 ##########           Layout        ################
 ###################################################
 
-source("Checking/module.R")
-source("Exploration/module.R")
-source("API/module.R")
-source("Team/module.R")
-
 # Header
 
 header <- function(id) {
