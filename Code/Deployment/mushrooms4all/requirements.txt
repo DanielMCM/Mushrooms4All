@@ -1,0 +1,17 @@
+shiny
+shinyjs
+shinydashboard
+shinythemes
+stringr
+arules
+dplyr
+gridExtra
+grid
+dplyr
+ggplot2
+lattice
+arulesViz
+utils
+lubridate
+rlist
+lubridate
