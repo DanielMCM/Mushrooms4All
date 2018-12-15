@@ -63,48 +63,48 @@ exploration_server <- function(input, output, session) {
         values <- c()
 
         for (i in 1:(length(input$columns) - 1)) {
+
+            j <- i + 1
+
             left_column <- input$columns[i] # left column
             left_values <- as.character(unique(mushrooms[[left_column]])) # left values
+
+            right_column <- input$columns[j] # right column
+            right_values <- as.character(unique(mushrooms[[right_column]])) # right values
 
             nodes <- c(nodes, left_values)
             offset <- length(colors)
             colors[(offset + 1):(offset + length(left_values))] <- i
 
-            for (j in (i + 1):length(input$columns)) {
+            for (k in 1:length(left_values)) {
 
-                right_column <- input$columns[j] # right column
-                right_values <- as.character(unique(mushrooms[[right_column]])) # right values
+                left_node <- as.character(left_values[k])
 
-                for (k in 1:length(left_values)) {
+                for (l in 1:length(right_values)) {
 
-                    left_node <- as.character(left_values[k])
+                    right_node <- as.character(right_values[l])
 
-                    for (l in 1:length(right_values)) {
-
-                        right_node <- as.character(right_values[l])
-
-                        mushrooms_subset <- mushrooms[, c(left_column, right_column)]
-                        mushrooms_subset <- mushrooms_subset[mushrooms_subset[,1] == left_node & mushrooms_subset[,2] == right_node,]
+                    mushrooms_subset <- mushrooms[, c(left_column, right_column)]
+                    mushrooms_subset <- mushrooms_subset[mushrooms_subset[,1] == left_node & mushrooms_subset[,2] == right_node,]
                        
-                        weight <- nrow(mushrooms_subset)
+                    weight <- nrow(mushrooms_subset)
 
-                        sources <- c(sources, left_node)
-                        targets <- c(targets, right_node)
-                        values <- c(values, weight)
-                    }
+                    sources <- c(sources, left_node)
+                    targets <- c(targets, right_node)
+                    values <- c(values, weight)
                 }
             }
         }
         nodes <- c(nodes, right_values)
         offset <- length(colors)
-        colors[(offset + 1):(offset + length(left_values))] <- length(input$columns)
+        colors[(offset + 1):(offset + length(right_values))] <- length(input$columns)
 
-        sources <- as.numeric(mapvalues(sources, nodes, c(1:length(nodes))))
-        targets <- as.numeric(mapvalues(targets, nodes, c(1:length(nodes))))
+        sources <- as.numeric(mapvalues(sources, nodes, c(0:(length(nodes)-1))))
+        targets <- as.numeric(mapvalues(targets, nodes, c(0:(length(nodes)-1))))
 
         my_colors <- colorRampPalette(brewer.pal(9, "Set1"))(22)
         colors <- mapvalues(colors, c(1:length(input$columns)), my_colors[1:length(input$columns)])
-        
+
         return(plot_ly(
                 type = "sankey",
                 orientation = "h",
