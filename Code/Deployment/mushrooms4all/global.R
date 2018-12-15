@@ -6,14 +6,14 @@ library(stringr)
 
 values <- reactiveValues()
 
-# Code value dictionary -> Features
+# Code value dictionary -> Features and selection
 
 code_value_dictionary <- read.csv(file = "Data/code_value_dictionary.csv", sep = ",", header = TRUE)
 code_value_dictionary$column <- as.factor(code_value_dictionary$column)
 code_value_dictionary$name <- as.character(code_value_dictionary$name)
 code_value_dictionary$code <- as.character(code_value_dictionary$code)
 
-columns <- unique(code_value_dictionary$column)
+columns <- as.character(unique(code_value_dictionary$column))
 columns <- columns[which(columns != "class")]
 
 generate_key <- function(key, column) {
@@ -70,3 +70,9 @@ values$globalSession <- NULL
 values$navigateTo <- function(tabName) {
     showTab(inputId = "tabs", target = tabName, select = TRUE, session = values$globalSession)
 }
+
+# Exploration
+
+mushrooms_columns <- c()
+values$mushrooms <- NULL
+values$mushrooms_columns <- NULL

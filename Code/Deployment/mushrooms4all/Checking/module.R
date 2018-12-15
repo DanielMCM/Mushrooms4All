@@ -11,11 +11,11 @@ checking_ui <- function(id) {
     tabPanel(
         title = "Check your mushroom",
         fluidRow(
-            box(h3(class = "checking-subtitle text-right", "How is your mushroom?")),
-            box(class = "text-left", shinyjs::disabled(actionButton(ns("button_predict"), "Is it edible?")))),
+            box(h3(class = "checking-subtitle", "How is your mushroom?")),
+            box(class = "text-right", shinyjs::disabled(actionButton(ns("button_predict"), "Is it edible?")))),
         fluidRow(
             box(selectizeInput(ns('features'), NULL, choices = features, multiple = TRUE, options = list(placeholder = 'Write here the features of your mushroom (by name or category)')),
-                div(class = "w-100 text-right", actionButton(ns("button_random"), "Random mushroom"))),
+                div(class = "w-100", actionButton(ns("button_random"), "Random mushroom"))),
             box(verbatimTextOutput(ns('summary')))))
 }
 
@@ -47,6 +47,10 @@ checking_server <- function(input, output, session) {
         values$features <<- choices
 
         updateSelectizeInput(session, 'features', choices = choices, selected = choices, server = FALSE)
+    })
+
+    observeEvent(input$button_predict, {
+        
     })
 
     # Renders

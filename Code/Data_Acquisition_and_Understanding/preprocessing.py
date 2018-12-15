@@ -33,12 +33,8 @@ for column_name in column_names:
         format = lambda value: row['name'] if value == row['code'] else value
         mushrooms[column_name] = mushrooms[column_name].map(format)
 
-# drop first colum (index)
-
-mushrooms.drop(mushrooms.columns[[0]], axis = 1, inplace = True)
-
 # save as csv
 
-mushrooms.to_csv(processed_data_folder_path + "Mushrooms.csv")
+mushrooms.to_csv(processed_data_folder_path + "Mushrooms.csv", index = False)
 
 print("-------- End ---------")
