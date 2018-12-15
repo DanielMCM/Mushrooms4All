@@ -6,12 +6,16 @@
 
 body {
     background-image: url(background.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
     overflow: hidden;
 }
-body > .container-fluid {
-    overflow-y: auto;
-    height: 100vh;
-}
+
+    body > .container-fluid {
+        overflow-y: auto;
+        height: 100vh;
+    }
 
 .main {
     padding: 20px;
@@ -29,8 +33,8 @@ body > .container-fluid {
 
 .title {
     text-align: center;
-    margin-top: 60px;
-    font-size: 70px;
+    margin-top: 45px;
+    font-size: 85px;
     font-family: 'Dancing Script', cursive;
 }
 
@@ -42,40 +46,82 @@ body > .container-fluid {
     border: 0;
 }
 
+a {
+    color: #56755a;
+    border: 1px solid transparent;
+}
+
+    a:hover {
+        color: #49684d;
+        background-color: transparent !important;
+        border: 1px solid #49684d;
+    }
+
+.btn-default:hover, .nav-pills > li.active > a:hover {
+    border-color: #49684d !important;
+}
+
+
 .nav {
     text-align: center;
     margin: 50px 0 40px 0;
 }
-.nav > li {
-    display: inline-block;
-    float: none;
+
+    .nav > li {
+        display: inline-block;
+        float: none;
+    }
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .btn-default{
+    background-color: #56755a;
+}
+
+    .nav-pills > li.active > a:hover, .btn-default:hover {
+        background-color: #49684d !important;
+    }
+
+.shiny-input-container:not(.shiny-input-container-inline) {
+    width: 500px !important;
 }
 
 .btn-default {
     color: #ffffff;
-    background-color: #317234;
-    border-color: #317234;
-}
-.btn-default:hover, .nav-pills > li.active > a:hover {
-    background-color: #db5f5c;
-    border-color: #db5f5c;
+    background-color: #56755a;
+    border-color: #56755a;
 }
 
+    .btn-default:hover, .nav-pills > li.active > a:hover {
+        background-color: #db5f5c;
+        border-color: #db5f5c;
+    }
+
 .irs-single {
-    background: #317234;
+    background: #56755a;
 }
+
 .irs-bar {
-    border-top: 1px solid #317234;
-    border-bottom: 1px solid #317234;
-    background: #317234;
+    border-top: 1px solid #56755a;
+    border-bottom: 1px solid #56755a;
+    background: #56755a;
 }
+
 .irs-bar-edge {
-    border: 1px solid #317234;
-    background: #317234;
+    border: 1px solid #56755a;
+    background: #56755a;
+}
+
+/* Checking */
+
+.checking-subtitle {
+    margin: 0 0 35px 0;
+}
+
+#Checking-button_predict {
+    width: 35%;
+    height: 50px;
 }
 
 /* Team */
-
 .team-content {
     padding: 40px;
 }

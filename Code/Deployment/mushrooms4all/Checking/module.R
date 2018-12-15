@@ -9,7 +9,14 @@ results_path <- "Checking/"
 checking_ui <- function(id) {
     ns <- NS(id)
     tabPanel(
-        title = "Check your mushroom")
+        title = "Check your mushroom",
+        fluidRow(
+            box(h3(class = "checking-subtitle text-right", "How is your mushroom?")),
+            box(class = "text-left", shinyjs::disabled(actionButton(ns("button_predict"), "Is it edible?")))),
+        fluidRow(
+            box(selectizeInput(ns('features'), NULL, choices = features, multiple = TRUE, options = list(placeholder = 'Write here the features of your mushroom (by name or category)')),
+                div(class = "w-100 text-right", actionButton(ns("button_random"), "Random mushroom"))),
+            box(verbatimTextOutput(ns('summary')))))
 }
 
 # Server
@@ -18,5 +25,54 @@ checking_server <- function(input, output, session) {
 
     # Observers
 
-    # Plots
+    observe({
+        req(input$features)
+
+        choices <- calculate_features(input$features)
+        values$features_selected <<- input$features
+        values$features <<- choices
+
+        updateSelectizeInput(session, 'features', choices = choices, selected = input$features, server = FALSE)
+    })
+
+    observe({
+        req(input$features)
+        shinyjs::toggleState("button_predict", length(input$features) >= 22)
+    })
+
+    observeEvent(input$button_random, {
+        random_features <- random_selection()
+        choices <- calculate_features(random_features)
+        values$features_selected <<- random_features
+        values$features <<- choices
+
+        updateSelectizeInput(session, 'features', choices = choices, selected = choices, server = FALSE)
+    })
+
+    # Renders
+
+    output$summary <- renderPrint({
+        req(values$features_selected)
+
+        if (length(values$features_selected) == 0) {
+            return("Select features")
+        }
+
+        pairs <- strsplit(values$features_selected, "::")
+        columns <- unlist(lapply(pairs, `[[`, 1))
+        values <- unlist(lapply(pairs, `[[`, 2))
+
+        details <- data.frame(columns, values)
+        names <- c()
+        for (i in 1:nrow(details)) {
+            column <- as.character(details[i, 1][1])
+            code <- as.character(details[i, 2][1])
+            names[i] <- code_value_dictionary$name[code_value_dictionary$column == column & code_value_dictionary$code == code]
+        }
+        details[, 3] <- names
+        details <- details[, c(1, 3, 2)]
+
+        colnames(details) <- c("Feature", "Value", "Code")
+        return (details)
+    })
 }
