@@ -7,8 +7,8 @@ library(utils)
 directory <- getSrcDirectory(function(dummy) { dummy })
 setwd(directory)
 
-source("libraries.R", local = TRUE)
-source("sources.R", local = TRUE)
+source("libraries.R", local = TRUE, encoding = "UTF-8")
+#source("sources.R", local = TRUE, encoding = "UTF-8")
 
 shinyServer(function(input, output) {
 

@@ -4,7 +4,7 @@
 
 library(shiny)
 library(shinyjs)
-library(shinydashboar)
+library(shinydashboard)
 library(shinythemes)
 library(stringr)
 library(arules)

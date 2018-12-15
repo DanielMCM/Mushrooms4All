@@ -2,10 +2,10 @@
 ##########          Sources        ################
 ###################################################
 
-source("Checking/module.R")
-source("Exploration/module.R")
-source("API/module.R")
-source("Team/module.R")
+#source("Checking/module.R", encoding = "UTF-8")
+#source("Exploration/module.R", encoding = "UTF-8")
+#source("API/module.R", encoding = "UTF-8")
+#source("Team/module.R", encoding = "UTF-8")
 
-source("layout.R")
-source("global.R")
+#source("layout.R", encoding = "UTF-8")
+#source("global.R", encoding = "UTF-8")
