@@ -2,19 +2,20 @@
 ##########           Server        ################
 ###################################################
 
-library(shiny)
+# Set current path as working directory (used to load other files easily)
+
 library(utils)
 directory <- getSrcDirectory(function(dummy) { dummy })
 setwd(directory)
 
+# Load libraries and other files
+
 source("libraries.R", local = TRUE, encoding = "UTF-8")
 source("sources.R", local = TRUE, encoding = "UTF-8")
 
-shinyServer(function(input, output, session) {
+# Load shiny server
 
-    #output$title <- renderPrint({
-        #"Este es el titulo"
-    #})
+shinyServer(function(input, output, session) {
 
     # Save global session
     values$globalSession <- session

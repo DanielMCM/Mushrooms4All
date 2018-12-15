@@ -2,13 +2,18 @@
 ##########           UI            ################
 ###################################################
 
-library(shiny)
+# Set current path as working directory (used to load other files easily)
+
 library(utils)
 directory <- getSrcDirectory(function(dummy) { dummy })
 setwd(directory)
 
+# Load libraries and other files
+
 source("libraries.R", local = TRUE, encoding = "UTF-8")
 source("sources.R", local = TRUE, encoding = "UTF-8")
+
+# Load shiny ui
 
 shinyUI(fluidPage(
     shinyjs::useShinyjs(debug = TRUE),
