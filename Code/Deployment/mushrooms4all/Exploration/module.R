@@ -17,7 +17,12 @@ exploration_ui <- function(id) {
         fluidRow(
             box(width = 12,
                 title = h4("Sankei diagram"),
-                plotlyOutput(ns('plot.sankei')))))
+                plotlyOutput(ns('plot.sankei')))),
+        fluidRow(
+            box(width = 12,
+                title = h4("Stacked bar chart"),
+                selectizeInput(ns('column'), NULL, choices = mushrooms_columns, options = list(placeholder = 'Choose a feature to study')),
+                plotlyOutput(ns('plot.stacked.bar')))))
 }
 
 # Server
@@ -43,6 +48,11 @@ exploration_server <- function(input, output, session) {
     observe({
         req(values$mushrooms_columns)
         updateSelectizeInput(session, 'columns', choices = values$mushrooms_columns, selected = NULL, server = FALSE)
+    })
+
+    observe({
+        req(values$mushrooms_columns)
+        updateSelectizeInput(session, 'column', choices = values$mushrooms_columns[which(values$mushrooms_columns != "class")], selected = NULL, server = FALSE)
     })
 
     output$plot.sankei <- renderPlotly({
@@ -117,6 +127,30 @@ exploration_server <- function(input, output, session) {
                     target = targets,
                     value = values
                 )))
+    })
+
+    output$plot.stacked.bar <- renderPlotly({
+        req(values$mushrooms)
+        req(input$column)
+
+        mushrooms <- values$mushrooms
+        dataset <- mushrooms[, c("class", input$column)]
+
+        features <- unique(dataset[, 2])
+        edible <- c()
+        poisonous <- c()
+
+        for (i in 1:length(features)) {
+            edible <- c(edible, nrow(dataset[dataset[, 1] == "edible" & dataset[, 2] == features[i],]))
+            poisonous <- c(poisonous, nrow(dataset[dataset[, 1] == "poisonous" & dataset[, 2] == features[i],]))
+        }
+
+        data <- data.frame(features, edible, poisonous)
+
+        p <- plot_ly(data, x = ~features, y = ~edible, type = 'bar', name = 'Edible') %>%
+            add_trace(y = ~poisonous, name = 'Poisonous') %>%
+            layout(yaxis = list(title = 'Count'), xaxis = list(title = 'Features'), barmode = 'stack')
+        return(p)
     })
 
     observeEvent(input$button_run_model, {
