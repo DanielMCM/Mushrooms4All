@@ -2,17 +2,26 @@
 ##########           Server        ################
 ###################################################
 
-source("libraries.R")
-source("sources.R")
+library(shiny)
+library(utils)
+directory <- getSrcDirectory(function(dummy) { dummy })
+setwd(directory)
 
-server <- function(input, output, session) {
+source("libraries.R", local = TRUE)
+source("sources.R", local = TRUE)
+
+shinyServer(function(input, output) {
+
+    output$title <- renderPrint({
+        "Este es el titulo"
+    })
 
     # Save global session
-    values$globalSession <- session
+    #values$globalSession <- session
 
-    # Call modules
-    callModule(checking_server, "Checking")
-    callModule(exploration_server, "Exploration")
-    callModule(api_server, "API")
-    callModule(team_server, "Team")
-}
+    ## Call modules
+    #callModule(checking_server, "Checking")
+    #callModule(exploration_server, "Exploration")
+    #callModule(api_server, "API")
+    #callModule(team_server, "Team")
+})

@@ -2,18 +2,18 @@
 ##########           UI            ################
 ###################################################
 
-source("libraries.R")
-source("sources.R")
+library(shiny)
+library(utils)
+directory <- getSrcDirectory(function(dummy) { dummy })
+setwd(directory)
 
-ui <- fluidPage(
-    shinyjs::useShinyjs(debug = TRUE),
-    theme = shinythemes::shinytheme("journal"),
+source("libraries.R", local = TRUE)
+source("sources.R", local = TRUE)
+
+shinyUI(fluidPage(
     fluidRow(class = "main",
         div(class = "content-wrapper",
-            header("Header"),
-            content("Content")
+            verbatimTextOutput("title")
         )
-    ),
-    tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")),
-    tags$head(tags$link(rel = "stylesheet", href = "https://fonts.googleapis.com/css?family=Dancing+Script:400,700"))
-)
+    )
+))
