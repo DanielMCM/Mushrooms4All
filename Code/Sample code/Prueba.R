@@ -1,23 +1,19 @@
+
 library(randomForest)
 library(MASS)
 library(h2o)
 library(caret)
+library(e1071)
+library(AzureML)
+library(dplyr)
 
 m1 <- read.csv("mushrooms.csv")
 m2 <- read.csv("mushrooms_v2 (prob 0.05).csv")
-
+colnames(m2)
 dummy <- caret::dummyVars("~ .", data = m2)
 m3 <- data.frame(predict(dummy, newdata = m2))
 m3$class.p <- NULL
 write.csv(m3, file = "dummy.csv")
-#####################################
-########        RF        ###########
-#####################################
-
-rf2 = randomForest(class ~ ., data = m2)
-rf2
-predict(rf2, m2)
-saveRDS("rf2", "RandomForest.RData")
 
 #####################################
 ########        h2o       ###########
