@@ -1704,7 +1704,7 @@ Nevertheless due to compatibility problems with the virtual machine and
 \begin_layout Standard
 As a summary, the best model was xgboost with a cross-validation value of
  1.000 and train model accuracy of 1.000.
- Nevertheless the best model implemented was the Two-Class Boosted Decision
+ However, the best model implemented was the Two-Class Boosted Decision
  Tree in AzureML:
 \end_layout
 
