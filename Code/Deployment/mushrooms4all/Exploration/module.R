@@ -22,12 +22,19 @@ exploration_ui <- function(id) {
             box(width = 12,
                 title = h4("Stacked bar chart"),
                 selectizeInput(ns('column'), NULL, choices = mushrooms_columns, options = list(placeholder = 'Choose a feature to study')),
-                plotlyOutput(ns('plot.stacked.bar')))))
+                plotlyOutput(ns('plot.stacked.bar')))),
+        fluidRow(
+            box(width = 12,
+                title = h4("Jitter graph"),
+                selectizeInput(ns('c1'), NULL, choices = mushrooms_columns, options = list(placeholder = 'Choose a feature to study')),
+                selectizeInput(ns('c2'), NULL, choices = mushrooms_columns, options = list(placeholder = 'Choose a feature to study')),
+                plotOutput(ns('plot.jitter')))))
 }
 
 # Server
 
 exploration_server <- function(input, output, session) {
+
 
     observe({
         req(input$input_csv_file) # Only when file is chosen
@@ -35,7 +42,8 @@ exploration_server <- function(input, output, session) {
         # Read data
         data <- read.table(input$input_csv_file$datapath, header = TRUE, sep = ",", na.strings = "NONE", quote = "")
         data <- data[complete.cases(data),]
-      
+        colnames(data) <- gsub("\\.", "_", colnames(data))
+
         # Save dataset
         values$mushrooms <<- data
         values$mushrooms_columns <<- colnames(data)
@@ -53,6 +61,14 @@ exploration_server <- function(input, output, session) {
     observe({
         req(values$mushrooms_columns)
         updateSelectizeInput(session, 'column', choices = values$mushrooms_columns[which(values$mushrooms_columns != "class")], selected = NULL, server = FALSE)
+    })
+    observe({
+        req(values$mushrooms_columns)
+        updateSelectizeInput(session, 'c2', choices = values$mushrooms_columns[which(values$mushrooms_columns != "class")], selected = NULL, server = FALSE)
+    })
+    observe({
+        req(values$mushrooms_columns)
+        updateSelectizeInput(session, 'c1', choices = values$mushrooms_columns[which(values$mushrooms_columns != "class")], selected = NULL, server = FALSE)
     })
 
     output$plot.sankei <- renderPlotly({
@@ -95,8 +111,8 @@ exploration_server <- function(input, output, session) {
                     right_node <- as.character(right_values[l])
 
                     mushrooms_subset <- mushrooms[, c(left_column, right_column)]
-                    mushrooms_subset <- mushrooms_subset[mushrooms_subset[,1] == left_node & mushrooms_subset[,2] == right_node,]
-                       
+                    mushrooms_subset <- mushrooms_subset[mushrooms_subset[, 1] == left_node & mushrooms_subset[, 2] == right_node,]
+
                     weight <- nrow(mushrooms_subset)
 
                     sources <- c(sources, left_node)
@@ -109,8 +125,8 @@ exploration_server <- function(input, output, session) {
         offset <- length(colors)
         colors[(offset + 1):(offset + length(right_values))] <- length(input$columns)
 
-        sources <- as.numeric(mapvalues(sources, nodes, c(0:(length(nodes)-1))))
-        targets <- as.numeric(mapvalues(targets, nodes, c(0:(length(nodes)-1))))
+        sources <- as.numeric(mapvalues(sources, nodes, c(0:(length(nodes) - 1))))
+        targets <- as.numeric(mapvalues(targets, nodes, c(0:(length(nodes) - 1))))
 
         my_colors <- colorRampPalette(brewer.pal(9, "Set1"))(22)
         colors <- mapvalues(colors, c(1:length(input$columns)), my_colors[1:length(input$columns)])
@@ -153,8 +169,25 @@ exploration_server <- function(input, output, session) {
         return(p)
     })
 
+    output$plot.jitter <- renderPlot({
+        req(values$mushrooms)
+        req(input$c1)
+        req(input$c2)
+
+        mushrooms <- values$mushrooms
+        dataset <- mushrooms[, c("class",input$c1, input$c2)]
+
+        p = ggplot(dataset, aes(x = dataset[,input$c1],
+                        y = dataset[, input$c2],
+                        color = dataset[, "class"]))
+        p = p + geom_jitter(alpha = 0.3) + scale_color_manual(breaks = c('edible', 'poisonous'),
+                         values = c('darkgreen', 'red')) +
+                         labs(colour = "Class", x = input$c2, y = input$c1)
+        return(p)
+    })
+
     observeEvent(input$button_run_model, {
         #values$navigateTo("Results")
         #values$state <<- "processing"
     })
-}
+    }
