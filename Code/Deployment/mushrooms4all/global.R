@@ -6,6 +6,18 @@ library(stringr)
 
 values <- reactiveValues()
 
+# Models
+
+model.randomforest <- readRDS("Models/RandomForest.RData")
+model.decisiontree <- readRDS("Models/DecisionTree.RData")
+
+# Example mushroom
+
+example_mushroom <- read.csv(file = "Data/example_mushroom.csv")
+mushrooms_sankei <- read.csv(file = "Data/Mushrooms.csv")
+mushrooms_others <- read.csv(file = "Data/mushrooms_v2 (prob 0.05).csv")
+values$mushrooms_columns <- colnames(mushrooms_sankei)
+
 # Code value dictionary -> Features and selection
 
 code_value_dictionary <- read.csv(file = "Data/code_value_dictionary.csv", sep = ",", header = TRUE)
@@ -84,7 +96,7 @@ values$chk_mushrooms_columns <- NULL
 
 mushrooms_columns <- c()
 values$mushrooms <- NULL
-values$mushrooms_columns <- NULL
+#values$mushrooms_columns <- NULL
 
 # Utils
 

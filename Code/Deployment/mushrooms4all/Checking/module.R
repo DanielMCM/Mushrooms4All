@@ -13,7 +13,7 @@ checking_ui <- function(id) {
         fluidRow(
             box(width = 4, radioGroupButtons(inputId = ns("section"), choices = c("Custom mushroom", "From file"), justified = FALSE, individual = TRUE)),
             box(width = 4, class = "text-right", shinyjs::disabled(actionButton(ns("button_predict"), "Is it edible?"))),
-            box(width = 4, selectizeInput(ns("prediction_model"), "Choose model", choices = c("Boosted", "Decision tree", "Random forest"), options = list(placeholder = "Choose a predictive model")))),
+            box(width = 4, selectizeInput(ns("prediction_model"), "Choose model", choices = c("Boosted", "Decision tree"), options = list(placeholder = "Choose a predictive model")))),
         fluidRow(id = ns("one_mushroom_section"),
             box(width = 12, h3(class = "checking-subtitle", "How is your mushroom?")),
             box(selectizeInput(ns('features'), "Features of your mushroom", choices = features, multiple = TRUE, options = list(placeholder = 'Write here the features of your mushroom (by name or category)')),
@@ -132,7 +132,7 @@ checking_server <- function(input, output, session) {
 
             # get valid mushroom
 
-            mushrooms <- read.csv(file = "../../../Sample_Data/Raw/mushrooms_v2 (prob 0.05).csv")
+            mushrooms <- example_mushroom
             column_names <- gsub("\\.", "_", colnames(mushrooms))
             colnames(mushrooms) <- column_names
             for (name in column_names) {
@@ -191,13 +191,13 @@ checking_server <- function(input, output, session) {
     }
 
     predict_randomforest <- function(mushroom) {
-        model.rf <- readRDS("Models/RandomForest.RData")
+        model.rf <- model.randomforest
         results <- predict(model.rf, mushroom)
         return(results)
     }
 
     predict_decisiontree <- function(mushroom) {
-        tree <- readRDS("Models/DecisionTree.RData")
+        tree <- model.decisiontree
         results <- predict(tree, mushroom, type = 'class')
         results <- as.data.frame(results)
         colnames(results) <- c("class")

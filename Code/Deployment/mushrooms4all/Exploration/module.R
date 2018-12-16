@@ -12,8 +12,8 @@ exploration_ui <- function(id) {
         title = "Explore your mushrooms",
         br(),
         fluidRow(
-            box(class = "exploration-picker-column text-right", title = h3("Choose a CSV file"), fileInput(ns("input_csv_file"), NULL, accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv"))),
-            box(title = h3("Select features to compare"), selectizeInput(ns('columns'), NULL, choices = mushrooms_columns, multiple = TRUE, options = list(placeholder = 'Choose the features to compare')))),
+            #box(class = "exploration-picker-column text-right", title = h3("Choose a CSV file"), fileInput(ns("input_csv_file"), NULL, accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv"))),
+            box(class = 12, title = h3("Select features to compare"), selectizeInput(ns('columns'), NULL, choices = mushrooms_columns, multiple = TRUE, options = list(placeholder = 'Choose the features to compare')))),
         fluidRow(
             box(width = 12,
                 title = h4("Sankei diagram"),
@@ -34,7 +34,6 @@ exploration_ui <- function(id) {
 # Server
 
 exploration_server <- function(input, output, session) {
-
 
     observe({
         req(input$input_csv_file) # Only when file is chosen
@@ -73,14 +72,14 @@ exploration_server <- function(input, output, session) {
 
     output$plot.sankei <- renderPlotly({
         req(input$columns)
-        req(values$mushrooms)
+        #req(values$mushrooms)
         req(values$mushrooms_columns)
 
         if (length(input$columns) < 2) {
             return()
         }
 
-        mushrooms <- values$mushrooms
+        mushrooms <- mushrooms_sankei
 
         nodes <- c()
         colors <- c()
@@ -130,7 +129,7 @@ exploration_server <- function(input, output, session) {
 
         my_colors <- colorRampPalette(brewer.pal(9, "Set1"))(22)
         colors <- mapvalues(colors, c(1:length(input$columns)), my_colors[1:length(input$columns)])
-
+        
         return(plot_ly(
                 type = "sankey",
                 orientation = "h",
@@ -146,10 +145,10 @@ exploration_server <- function(input, output, session) {
     })
 
     output$plot.stacked.bar <- renderPlotly({
-        req(values$mushrooms)
+        #req(values$mushrooms)
         req(input$column)
 
-        mushrooms <- values$mushrooms
+        mushrooms <- mushrooms_others
         dataset <- mushrooms[, c("class", input$column)]
 
         features <- unique(dataset[, 2])
@@ -170,11 +169,11 @@ exploration_server <- function(input, output, session) {
     })
 
     output$plot.jitter <- renderPlot({
-        req(values$mushrooms)
+        #req(values$mushrooms)
         req(input$c1)
         req(input$c2)
 
-        mushrooms <- values$mushrooms
+        mushrooms <- mushrooms_others
         dataset <- mushrooms[, c("class",input$c1, input$c2)]
 
         p = ggplot(dataset, aes(x = dataset[,input$c1],
