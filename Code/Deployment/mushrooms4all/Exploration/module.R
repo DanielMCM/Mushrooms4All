@@ -129,23 +129,7 @@ exploration_server <- function(input, output, session) {
 
         my_colors <- colorRampPalette(brewer.pal(9, "Set1"))(22)
         colors <- mapvalues(colors, c(1:length(input$columns)), my_colors[1:length(input$columns)])
-
-        print("Sources --------------")
-        print(length(sources))
-        print(sources)
-        print("Targets")
-        print(length(targets))
-        print(targets)
-        print("Values")
-        print(length(values))
-        print(values)
-        print("Nodes")
-        print(length(nodes))
-        print(nodes)
-        print("Colors")
-        print(length(colors))
-        print(colors)
-
+        
         return(plot_ly(
                 type = "sankey",
                 orientation = "h",
@@ -158,7 +142,6 @@ exploration_server <- function(input, output, session) {
                     target = targets,
                     value = values
                 )))
-                print("End-------------------------")
     })
 
     output$plot.stacked.bar <- renderPlotly({
