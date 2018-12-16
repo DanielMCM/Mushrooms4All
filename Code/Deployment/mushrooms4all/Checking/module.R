@@ -191,13 +191,13 @@ checking_server <- function(input, output, session) {
     }
 
     predict_randomforest <- function(mushroom) {
-        model.rf <- readRDS("Models/RandomForest.RData")
+        model.rf <- model.randomforest
         results <- predict(model.rf, mushroom)
         return(results)
     }
 
     predict_decisiontree <- function(mushroom) {
-        tree <- readRDS("Models/DecisionTree.RData")
+        tree <- model.decisiontree
         results <- predict(tree, mushroom, type = 'class')
         results <- as.data.frame(results)
         colnames(results) <- c("class")
