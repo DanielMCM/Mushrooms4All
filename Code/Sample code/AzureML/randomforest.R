@@ -48,7 +48,7 @@ test <- tail(m2, n = count(m2) - length(train_ind))
 
 # Train the model
 
-model.rf <- randomForest(class ~ ., data = train)
+model.rf <- randomForest(class ~ ., data = m2)
 
 # (Optional) Save the model as RDATA
 save(model.rf, file = "RandomForest.RData")
