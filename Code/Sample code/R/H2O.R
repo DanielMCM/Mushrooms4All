@@ -7,8 +7,8 @@ library(e1071)
 library(AzureML)
 library(dplyr)
 
-m1 <- read.csv("mushrooms.csv")
-m2 <- read.csv("mushrooms_v2 (prob 0.05).csv")
+m1 <- read.csv("../../../Sample_Data/Raw/mushrooms.csv")
+m2 <- read.csv("../../../Sample_Data/Raw/mushrooms_v2 (prob 0.05).csv")
 colnames(m2)
 dummy <- caret::dummyVars("~ .", data = m2)
 m3 <- data.frame(predict(dummy, newdata = m2))
@@ -27,8 +27,6 @@ train <- h2o.importFile("dummy.csv", header = TRUE)
 
 y <- "class.e"
 x <- setdiff(names(train), y)
-
-
 
 # For binary classification, response should be a factor
 train[, y] <- as.factor(train[, y])

@@ -81,7 +81,7 @@ a {
     }
 
 .shiny-input-container:not(.shiny-input-container-inline) {
-    width: 500px !important;
+    width: 100% !important;
 }
 
 .btn-default {
@@ -114,15 +114,19 @@ a {
     background-color: #56755a;
 }
 
-/* Checking */
+.shiny-input-radiogroup{
+    margin-top: 20px;
+    text-align: left;
+}
 
+/* Checking */
 .checking-subtitle {
     margin: 0 0 35px 0;
 }
 
 #Checking-button_predict {
-    width: 35%;
-    height: 50px;
+    width: 70%;
+    margin-top: 20px;
 }
 
 /* Exploration */

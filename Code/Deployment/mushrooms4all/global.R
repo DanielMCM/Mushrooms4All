@@ -9,7 +9,7 @@ values <- reactiveValues()
 # Code value dictionary -> Features and selection
 
 code_value_dictionary <- read.csv(file = "Data/code_value_dictionary.csv", sep = ",", header = TRUE)
-code_value_dictionary$column <- as.factor(gsub("-", ".", code_value_dictionary$column))
+code_value_dictionary$column <- as.factor(gsub("\\.", "_", code_value_dictionary$column))
 code_value_dictionary$name <- as.character(code_value_dictionary$name)
 code_value_dictionary$code <- as.character(code_value_dictionary$code)
 
@@ -76,8 +76,25 @@ values$navigateTo <- function(tabName) {
 values$mushroom <- NULL
 values$prediction <- NULL
 
+chk_mushrooms_columns <- c()
+values$chk_mushrooms <- NULL
+values$chk_mushrooms_columns <- NULL
+
 # Exploration
 
 mushrooms_columns <- c()
 values$mushrooms <- NULL
 values$mushrooms_columns <- NULL
+
+# Utils
+
+dataframe_transpose <- function(data) {
+    data <- as.data.frame(t(data))
+    rownames(data) <- NULL
+    colnames(data) <- as.character(unlist(data[1,]))
+    data <- data[-1,]
+}
+
+# Connection
+
+source("connection.R", local = TRUE)

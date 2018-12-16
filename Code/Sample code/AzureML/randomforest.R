@@ -21,7 +21,7 @@ auth_key <- "yxJRTwU8yTRFDGJs3GDbKplhJOXXeVIDY6934xtES4WvCH9s+kwsNXPvDWoNLV3+qL2
 
 m2 <- read.csv("../../../Sample_Data/Raw/mushrooms_v2 (prob 0.05).csv")
 #column_names <- c("class", "cap-shape", "cap-surface", "cap-color", "bruises", "odor", "gill-attachment", "gill-spacing", "gill-size", "gill-color", "stalk-shape", "stalk-root", "stalk-surface-above-ring", "stalk-surface-below-ring", "stalk-color-above-ring", "stalk-color-below-ring", "veil-type", "veil-color", "ring-number", "ring-type", "spore-print-color", "population", "habitat")
-column_names <- gsub("-", ".", colnames(m2))
+column_names <- gsub("-", "_", colnames(m2))
 colnames(m2) <- column_names
 
 for (name in column_names) {
