@@ -84,7 +84,11 @@ Assignment report
 \end_layout
 
 \begin_layout Author
-Daniel Minguez, Javier de la Rua
+Daniel Minguez - dani.min.cam@gmail.com, 
+\begin_inset Newline newline
+\end_inset
+
+Javier de la Rua - javierdlrm@outlook.com
 \end_layout
 
 \begin_layout Date
@@ -152,17 +156,13 @@ Deploy models in production
 placement H
 wide false
 sideways false
-status collapsed
-
-\begin_layout Plain Layout
-
-\end_layout
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename 00 Images/CRISP-DM_Process_Diagram.png
-	scale 50
+	scale 40
 
 \end_inset
 

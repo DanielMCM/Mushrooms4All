@@ -84,7 +84,7 @@ Assignment report
 \end_layout
 
 \begin_layout Author
-Daniel Minguez, Javier de la Rua
+Daniel Minguez - dani.min.cam@gmail.com, Javier de la Rua - javierdlrm@outlook.com
 \end_layout
 
 \begin_layout Date
@@ -1588,15 +1588,41 @@ Python:
 
 \begin_deeper
 \begin_layout Itemize
-Feedforward Neural network model with Keras.
+Feedforward Neural network model with 
+\begin_inset CommandInset href
+LatexCommand href
+name "Keras"
+target "https://keras.io/"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Itemize
-Xgboost model.
+\begin_inset CommandInset href
+LatexCommand href
+name "Xgboost"
+target "https://xgboost.readthedocs.io/en/latest/python/python_intro.html"
+literal "false"
+
+\end_inset
+
+model.
 \end_layout
 
 \begin_layout Itemize
-Nearest neighbors classification using scikit learn.
+Nearest neighbors classification using 
+\begin_inset CommandInset href
+LatexCommand href
+name "scikit learn"
+target "https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \end_deeper
@@ -1608,15 +1634,41 @@ R:
 
 \begin_deeper
 \begin_layout Itemize
-H2O automl model
+\begin_inset CommandInset href
+LatexCommand href
+name "H2O "
+target "https://cran.r-project.org/web/packages/h2o/h2o.pdf"
+literal "false"
+
+\end_inset
+
+automl model
 \end_layout
 
 \begin_layout Itemize
-Decision tree with rpart library
+Decision tree with 
+\begin_inset CommandInset href
+LatexCommand href
+name "rpart"
+target "https://cran.r-project.org/web/packages/rpart/rpart.pdf"
+literal "false"
+
+\end_inset
+
+ library
 \end_layout
 
 \begin_layout Itemize
-Random forest with randomForest library
+Random forest with 
+\begin_inset CommandInset href
+LatexCommand href
+name "randomForest"
+target "https://cran.r-project.org/web/packages/randomForest/randomForest.pdf"
+literal "false"
+
+\end_inset
+
+ library
 \end_layout
 
 \end_deeper
@@ -1628,7 +1680,15 @@ AzureML studio:
 
 \begin_deeper
 \begin_layout Itemize
-Two-Class Boosted Decision Tree
+\begin_inset CommandInset href
+LatexCommand href
+name "Two-Class Boosted Decision Tree"
+target "https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/two-class-boosted-decision-tree"
+literal "false"
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
@@ -1644,7 +1704,7 @@ Nevertheless due to compatibility problems with the virtual machine and
 \begin_layout Standard
 As a summary, the best model was xgboost with a cross-validation value of
  1.000 and train model accuracy of 1.000.
- Nevertheless the best model implemented was the Two-Class Boosted Decision
+ However, the best model implemented was the Two-Class Boosted Decision
  Tree in AzureML:
 \end_layout
 
@@ -1896,6 +1956,13 @@ No
 </row>
 </lyxtabular>
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
 \end_inset
 
 
@@ -3036,6 +3103,13 @@ stalk.root
 \begin_layout Standard
 We could not implement this model due to problems with input format data
  of the application.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -6183,8 +6257,12 @@ The first one consists of the use of a shiny app in which the user can perform
 \end_layout
 
 \begin_layout Itemize
-The first tab of the application is related to the prediction of the class
- of unknown mushrooms (e.g.
+The 
+\series bold
+first tab
+\series default
+ of the application is related to the prediction of the class of unknown
+ mushrooms (e.g.
  edible or poisonous).
  In this tab, the user can either insert a custom mushroom to be predicted
  or upload a csv file containing the attributes of one mushroom per row.
@@ -6194,22 +6272,32 @@ The first tab of the application is related to the prediction of the class
 \end_layout
 
 \begin_layout Itemize
-The second tab of the application is focused on the exploration the set
- of mushrooms.
+The 
+\series bold
+second tab
+\series default
+ of the application is focused on the exploration the set of mushrooms.
  
 \end_layout
 
 \begin_layout Itemize
-In the third tab, a brief description of the API, input and output formats
- and some code examples are included.
+In the 
+\series bold
+third tab
+\series default
+, a brief description of the API, input and output formats and some code
+ examples are included.
  The main point here is the key value pairs on the top of the page, where
  the user can find the API key token and the endpoint of the resource where
  the model is located.
 \end_layout
 
 \begin_layout Itemize
-Lastly, the fourth tab is reserved to present the members of the team behind
- the platform.
+Lastly, the 
+\series bold
+fourth tab
+\series default
+ is reserved to present the members of the team behind the platform.
  
 \end_layout
 
@@ -6232,8 +6320,11 @@ By this way, the access of the models from any environment able to make
 \end_layout
 
 \begin_layout Itemize
-Security and access.
- The models are located in the following endpoint through a POST request.
+
+\series bold
+Security and access
+\series default
+, The models are located in the following endpoint through a POST request.
 \end_layout
 
 \begin_layout Standard
@@ -6277,8 +6368,11 @@ rseLXxFhuqZd7hSPoI40KKV+80pIc/GtsF+Wqkzs7A==
 \end_layout
 
 \begin_layout Itemize
-Payload.
- The data set of unknown mushrooms must be serialized into a JSON object
+
+\series bold
+Payload, 
+\series default
+The data set of unknown mushrooms must be serialized into a JSON object
  with the following format, where the Values property contains one array
  of values per mushroom.
  
