@@ -132,7 +132,7 @@ checking_server <- function(input, output, session) {
 
             # get valid mushroom
 
-            mushrooms <- read.csv(file = "../../../Sample_Data/Raw/mushrooms_v2 (prob 0.05).csv")
+            mushrooms <- example_mushroom
             column_names <- gsub("\\.", "_", colnames(mushrooms))
             colnames(mushrooms) <- column_names
             for (name in column_names) {

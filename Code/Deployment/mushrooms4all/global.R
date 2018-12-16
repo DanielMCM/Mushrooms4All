@@ -6,6 +6,10 @@ library(stringr)
 
 values <- reactiveValues()
 
+# Example mushroom
+
+example_mushroom <- read.csv(file = "Data/example_mushroom.csv")
+
 # Code value dictionary -> Features and selection
 
 code_value_dictionary <- read.csv(file = "Data/code_value_dictionary.csv", sep = ",", header = TRUE)
