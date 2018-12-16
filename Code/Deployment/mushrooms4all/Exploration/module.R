@@ -156,8 +156,8 @@ exploration_server <- function(input, output, session) {
         poisonous <- c()
 
         for (i in 1:length(features)) {
-            edible <- c(edible, nrow(dataset[dataset[, 1] == "edible" & dataset[, 2] == features[i],]))
-            poisonous <- c(poisonous, nrow(dataset[dataset[, 1] == "poisonous" & dataset[, 2] == features[i],]))
+            edible <- c(edible, nrow(dataset[dataset[, 1] == "e" & dataset[, 2] == features[i],]))
+            poisonous <- c(poisonous, nrow(dataset[dataset[, 1] == "p" & dataset[, 2] == features[i],]))
         }
 
         data <- data.frame(features, edible, poisonous)
