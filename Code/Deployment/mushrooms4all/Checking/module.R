@@ -50,11 +50,11 @@ checking_server <- function(input, output, session) {
             return("Select features")
         }
 
-                pairs <- strsplit(values$features_selected, "::")
+        pairs <- strsplit(values$features_selected, "::")
         columns <- unlist(lapply(pairs, `[[`, 1))
         values <- unlist(lapply(pairs, `[[`, 2))
 
-                details <- data.frame(columns, values)
+        details <- data.frame(columns, values)
         names <- c()
         for (i in 1:nrow(details)) {
             column <- as.character(details[i, 1][1])
@@ -88,7 +88,9 @@ checking_server <- function(input, output, session) {
         colnames(mushroom) <- as.character(unlist(mushroom[1,]))
         mushroom <- mushroom[-1,]
 
-        load("Models/RandomForest.RData")
+        print(mushroom)
+
+        readRDS("Models/RandomForest.RData")
 
         values$prediction <<- predict(model.rf, mushroom)
         print(isolate(values$prediction))

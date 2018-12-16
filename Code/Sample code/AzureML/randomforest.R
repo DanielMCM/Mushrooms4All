@@ -51,9 +51,9 @@ test <- tail(m2, n = count(m2) - length(train_ind))
 model.rf <- randomForest(class ~ ., data = m2)
 
 # (Optional) Save the model as RDATA
-save(model.rf, file = "RandomForest.RData")
+saveRDS(model.rf, file = "RandomForest.RData")
 rm(model.rf)
-load("RandomForest.RData")
+readRDS("RandomForest.RData")
 
 # Predict function to deploy
 
