@@ -69,6 +69,15 @@ Y_test = y_train[sel]
 X_train = X_train.drop(sel, axis=0)
 Y_train = np.delete(y_train,sel)
 
+def create_baseline():
+    
+    model = Sequential()
+    model.add(Dense(60, input_dim=126, kernel_initializer='normal', activation='relu'))
+    model.add(Dense(1, kernel_initializer='normal', activation='sigmoid'))
+    # Compile model
+    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+    return model
+
 #CROSS VALIDATION
 estimator = KerasClassifier(build_fn=create_baseline, epochs=60, batch_size=100, verbose=1)
 kfold = StratifiedKFold(n_splits=5, shuffle=True, random_state=seed)
