@@ -13,7 +13,7 @@ checking_ui <- function(id) {
         fluidRow(
             box(width = 4, radioGroupButtons(inputId = ns("section"), choices = c("Custom mushroom", "From file"), justified = FALSE, individual = TRUE)),
             box(width = 4, class = "text-right", shinyjs::disabled(actionButton(ns("button_predict"), "Is it edible?"))),
-            box(width = 4, selectizeInput(ns("prediction_model"), "Choose model", choices = c("Boosted", "Decision tree", "Random forest"), options = list(placeholder = "Choose a predictive model")))),
+            box(width = 4, selectizeInput(ns("prediction_model"), "Choose model", choices = c("Boosted", "Decision tree"), options = list(placeholder = "Choose a predictive model")))),
         fluidRow(id = ns("one_mushroom_section"),
             box(width = 12, h3(class = "checking-subtitle", "How is your mushroom?")),
             box(selectizeInput(ns('features'), "Features of your mushroom", choices = features, multiple = TRUE, options = list(placeholder = 'Write here the features of your mushroom (by name or category)')),
