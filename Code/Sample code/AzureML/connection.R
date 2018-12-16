@@ -2,6 +2,10 @@
 ########     Connection   ###########
 #####################################
 
+#
+# Example of API request
+#
+
 library("RCurl")
 library("rjson")
 
